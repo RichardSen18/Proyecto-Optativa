@@ -99,13 +99,17 @@ def crear_tablas(connection):
         cursor.close()
         return usuario
 
-    def insert_juego_mesa(connection, titulo, fabricante, stock, precio, precio_ludoteca_hora):
+    def insert_juego_mesa(
+        connection, titulo, fabricante, stock, precio, precio_ludoteca_hora
+    ):
         cursor = connection.cursor()
         insert_query = """
         INSERT INTO juegos_mesa (titulo, fabricante, stock, precio, precio_ludoteca_hora)
         VALUES (%s, %s, %s, %s, %s);
         """
-        cursor.execute(insert_query, (titulo, fabricante, stock, precio, precio_ludoteca_hora))
+        cursor.execute(
+            insert_query, (titulo, fabricante, stock, precio, precio_ludoteca_hora)
+        )
         connection.commit()
         print(f"Juego de mesa '{titulo}' insertado exitosamente.")
         cursor.close()
@@ -143,16 +147,23 @@ def crear_tablas(connection):
         ventas = cursor.fetchall()
         cursor.close()
         return ventas
-    
-    def insertar_ludoteca(connection, juego_id, vendedor_id, hora_fin, duracion_horas, precio_total):
+
+    def insertar_ludoteca(
+        connection, juego_id, vendedor_id, hora_fin, duracion_horas, precio_total
+    ):
         cursor = connection.cursor()
         insert_query = """
         INSERT INTO ludoteca_sesiones (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total)
         VALUES (%s, %s, %s, %s, %s);
         """
-        cursor.execute(insert_query, (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total))
+        cursor.execute(
+            insert_query,
+            (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total),
+        )
         connection.commit()
-        print(f"Sesión de ludoteca registrada exitosamente para el juego ID '{juego_id}'.")
+        print(
+            f"Sesión de ludoteca registrada exitosamente para el juego ID '{juego_id}'."
+        )
         cursor.close()
 
     def get_ludoteca(connection):
@@ -188,7 +199,8 @@ def crear_tablas(connection):
         participantes = cursor.fetchall()
         cursor.close()
         return participantes
-    
+
+
 def main():
     connection = create_connection()
     if connection:
