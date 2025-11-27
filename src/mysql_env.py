@@ -18,8 +18,8 @@ def crear_tablas(connection):
         titulo VARCHAR(255) NOT NULL UNIQUE,
         fabricante VARCHAR(255) NULL,
         stock INT NOT NULL DEFAULT 0,
-        precio DECIMAL(10, 2) NOT NULL,
-        precio_ludoteca_hora DECIMAL(10, 2) NOT NULL,
+        precio_venta DECIMAL(10, 2) NOT NULL,       
+        precio_ludoteca_hora DECIMAL(10, 2) NOT NULL, 
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB;
     """
@@ -99,16 +99,15 @@ def crear_tablas(connection):
         cursor.close()
         return usuario
 
-    def insert_juego_mesa(
-        connection, titulo, fabricante, stock, precio, precio_ludoteca_hora
-    ):
+    def insert_juego_mesa(connection, titulo, fabricante, stock, precio_venta, precio_ludoteca_hora):
         cursor = connection.cursor()
         insert_query = """
-        INSERT INTO juegos_mesa (titulo, fabricante, stock, precio, precio_ludoteca_hora)
+        INSERT INTO juegos_mesa (titulo, fabricante, stock, precio_venta, precio_ludoteca_hora)
         VALUES (%s, %s, %s, %s, %s);
         """
         cursor.execute(
-            insert_query, (titulo, fabricante, stock, precio, precio_ludoteca_hora)
+            insert_query,
+            (titulo, fabricante, stock, precio_venta, precio_ludoteca_hora),
         )
         connection.commit()
         print(f"Juego de mesa '{titulo}' insertado exitosamente.")
