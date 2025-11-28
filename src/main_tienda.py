@@ -281,9 +281,9 @@ def modificar_usuario():
     tk.Label(top, text="Nueva Contraseña:").grid(
         row=2, column=0, padx=10, pady=5, sticky="e"
     )
-    tk.Label(top, text="(Dejar vacio para mantener)").grid(
-        row=3, column=0, columnspan=2, text_color="gray", font=("Arial", 8)
-    )
+    tk.Label(
+        top, text="(Dejar vacio para mantener)", fg="gray", font=("Arial", 8)
+    ).grid(row=3, column=0, columnspan=2)
     e_pass = tk.Entry(top, show="*")
     e_pass.grid(row=2, column=1, padx=10, pady=5)
 

@@ -8,8 +8,8 @@ from juego_mesa import JuegoMesa
 from venta import Venta
 
 # --- CONFIGURACIoN DE PRUEBA ---
-TEST_PASSWORD = "testpwd"
-TEST_JUEGO = "Test Catan"
+TEST_PASSWORD = "TestPassword123"
+TEST_JUEGO = "test game"
 TEST_JUEGO_ID = 0
 TEST_CLIENTE_ID = 0
 TEST_VENDEDOR_ID = 0
