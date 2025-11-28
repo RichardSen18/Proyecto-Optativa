@@ -762,7 +762,7 @@ menubar = tk.Menu(root)
 # 1. Menú Usuarios
 menu_usuarios = tk.Menu(menubar, tearoff=0)
 menu_usuarios.add_command(label="Registrar usuario", command=registrar_usuario_admin)
-# menu_usuarios.add_command(label="Modificar usuario", command=modificar_usuario)
+menu_usuarios.add_command(label="Modificar usuario", command=modificar_usuario)
 menu_usuarios.add_command(label="Eliminar usuario", command=eliminar_usuario)
 menu_usuarios.add_separator()
 menu_usuarios.add_command(label="Listar usuarios", command=listar_usuarios)
