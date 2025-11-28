@@ -34,7 +34,7 @@ def create_connection():
     try:
         connection = mysql.connector.connect(**DB_CONFIG)
         if connection.is_connected():
-            print("Conexion exitosa a MySQL")
+            print("Conexión exitosa a MySQL")
             return connection
     except Error as e:
         print(f"Error al conectar a MySQL: {e}")
@@ -44,4 +44,4 @@ def create_connection():
 def close_connection(connection):
     if connection and connection.is_connected():
         connection.close()
-        print("Conexion cerrada.")
+        print("Conexión cerrada.")

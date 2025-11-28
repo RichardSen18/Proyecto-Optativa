@@ -38,7 +38,7 @@ class JuegoMesa:
             return True
         except Exception as e:
             conn.rollback()
-            raise Exception(f"Error en la transaccion de stock: {e}")
+            raise Exception(f"Error en la transacción de stock: {e}")
         finally:
             cur.close()
             conn.close()

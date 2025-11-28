@@ -6,7 +6,7 @@ from ludoteca_participante import LudotecaParticipante
 
 class Tienda:
     """
-    Clase controladora central que gestiona la logica de negocio de la tienda:
+    Clase controladora central que gestiona la lógica de negocio de la tienda:
     Catálogo, Venta de Productos y Servicio de Ludoteca.
     """
 
@@ -72,7 +72,7 @@ class Tienda:
         """
         sesion = LudotecaSesion.buscar_por_id(sesion_id)
         if sesion is None:
-            raise Exception("Sesion de juego no encontrada.")
+            raise Exception("Sesión de juego no encontrada.")
             
         return sesion.finalizar_sesion()
 

@@ -77,6 +77,8 @@ class TestTienda(unittest.TestCase):
         JuegoMesa.eliminar(juego.id)
         juego_eliminado = JuegoMesa.buscar_por_titulo(TEST_JUEGO)
         self.assertIsNone(juego_eliminado, "La eliminacion del juego fallo.")
+        
+        print("\nPrueba 1 (CRUD Juegos): Realizada con exito - Se creo, busco y elimino correctamente.")
 
     # --- PRUEBA 2: Probar stock ---
     def test_2_stock_insuficiente(self):
@@ -86,6 +88,8 @@ class TestTienda(unittest.TestCase):
         # vender 6 cuando nomas hay 5
         with self.assertRaisesRegex(Exception, "Inventario insuficiente"):
             juego.reducir_stock(6)
+            
+        print("\nPrueba 2 (Validacion Stock): Realizada con exito - El sistema impidio vender sin inventario.")
 
     # --- PRUEBA 3: Probar la reduccion del stock ---
     def test_3_transaccion_venta_exitosa(self):
@@ -105,6 +109,8 @@ class TestTienda(unittest.TestCase):
         Venta.eliminar(venta.id)
         juego_post_eliminacion = JuegoMesa.buscar_por_id(juego.id)
         self.assertEqual(juego_post_eliminacion.stock, 5)  
+        
+        print("\nPrueba 3 (Transaccion Venta): Realizada con exito - Venta registrada y stock actualizado.")
 
     # --- PRUEBA 4: Autenticacion Y hashing ---
     def test_4_autenticacion_usuario(self):
@@ -118,6 +124,8 @@ class TestTienda(unittest.TestCase):
         # 2. Prueba de autenticacion fallida
         cliente_fail = Usuario.autenticar("ClientTest", "contraseña incorrecta")
         self.assertIsNone(cliente_fail, "La autenticacion fallida no devolvio None.")
+        
+        print("\nPrueba 4 (Seguridad): Realizada con exito - Autenticacion correcta y rechazo de claves erroneas.")
 
 
 # Ejecucion de las pruebas
