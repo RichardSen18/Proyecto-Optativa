@@ -148,3 +148,17 @@ class LudotecaSesion:
         finally:
             cur.close()
             conn.close()
+
+    @classmethod
+    def listar_todas(cls):
+        """Devuelve todas las sesiones ordenadas por fecha reciente."""
+        conn = get_conn()
+        try:
+            cur = conn.cursor()
+            query = "SELECT id, juego_id, vendedor_id, hora_inicio, hora_fin, duracion_horas, precio_total FROM ludoteca_sesiones ORDER BY id DESC"
+            cur.execute(query)
+            rows = cur.fetchall()
+            return [cls(r[0], r[1], r[2], r[3], r[4], r[5], r[6]) for r in rows]
+        finally:
+            cur.close()
+            conn.close()

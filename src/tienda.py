@@ -92,3 +92,7 @@ class Tienda:
     def listar_usuarios(self):
         """CRUD: Lista todos los usuarios."""
         return Usuario.listar_todos()
+    
+    def listar_sesiones(self):
+        """Devuelve el historial completo de sesiones."""
+        return LudotecaSesion.listar_todas()

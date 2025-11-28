@@ -26,7 +26,6 @@ class Venta:
         """
         conn = get_conn()
 
-        # Obtener datos del juego para el precio y stock
         juego = JuegoMesa.buscar_por_id(juego_id)
         if juego is None:
             raise Exception("Juego no encontrado en el catálogo. Venta cancelada.")
@@ -34,18 +33,24 @@ class Venta:
         precio_unitario = juego.precio_venta
         precio_total = cantidad * precio_unitario
 
-        # Iniciar la Transacción (quitamos stock)
         try:
-            juego.reducir_stock(cantidad)
             cur = conn.cursor()
+            
+            if juego.stock < cantidad:
+                raise Exception("Inventario insuficiente para la venta.")
+            
+            nuevo_stock = juego.stock - cantidad
+            cur.execute("UPDATE juegos_mesa SET stock = %s WHERE id = %s", (nuevo_stock, juego_id))
+            
             query = """
             INSERT INTO ventas (cliente_id, juego_id, cantidad, precio_total) 
             VALUES (%s, %s, %s, %s)
             """
             cur.execute(query, (cliente_id, juego_id, cantidad, precio_total))
+            
             conn.commit()
-            venta_id = cur.lastrowid
 
+            venta_id = cur.lastrowid
             return cls(venta_id, cliente_id, juego_id, cantidad, precio_total, "Ahora")
 
         except Exception as e:
