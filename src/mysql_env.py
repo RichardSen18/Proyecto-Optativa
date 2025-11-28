@@ -76,128 +76,128 @@ def crear_tablas(connection):
     print("Tablas creadas exitosamente.")
     cursor.close()
 
-    def insert_usuario(connection, nombre, role, password_hash):
-        cursor = connection.cursor()
-        insert_query = """
-        INSERT INTO usuarios (nombre, role, password)
-        VALUES (%s, %s, %s);
-        """
-        cursor.execute(insert_query, (nombre, role, password_hash))
-        connection.commit()
-        print(f"Usuario '{nombre}' insertado exitosamente.")
-        cursor.close()
+def insert_usuario(connection, nombre, role, password_hash):
+    cursor = connection.cursor()
+    insert_query = """
+    INSERT INTO usuarios (nombre, role, password)
+    VALUES (%s, %s, %s);
+    """
+    cursor.execute(insert_query, (nombre, role, password_hash))
+    connection.commit()
+    print(f"Usuario '{nombre}' insertado exitosamente.")
+    cursor.close()
 
-    def get_usuario(connection, nombre):
-        cursor = connection.cursor()
-        select_query = """
-        SELECT id, nombre, role, password, created_at
-        FROM usuarios
-        WHERE nombre = %s;
-        """
-        cursor.execute(select_query, (nombre,))
-        usuario = cursor.fetchone()
-        cursor.close()
-        return usuario
+def get_usuario(connection, nombre):
+    cursor = connection.cursor()
+    select_query = """
+    SELECT id, nombre, role, password, created_at
+    FROM usuarios
+    WHERE nombre = %s;
+    """
+    cursor.execute(select_query, (nombre,))
+    usuario = cursor.fetchone()
+    cursor.close()
+    return usuario
 
-    def insert_juego_mesa(connection, titulo, fabricante, stock, precio_venta, precio_ludoteca_hora):
-        cursor = connection.cursor()
-        insert_query = """
-        INSERT INTO juegos_mesa (titulo, fabricante, stock, precio_venta, precio_ludoteca_hora)
-        VALUES (%s, %s, %s, %s, %s);
-        """
-        cursor.execute(
-            insert_query,
-            (titulo, fabricante, stock, precio_venta, precio_ludoteca_hora),
-        )
-        connection.commit()
-        print(f"Juego de mesa '{titulo}' insertado exitosamente.")
-        cursor.close()
+def insert_juego_mesa(connection, titulo, fabricante, stock, precio_venta, precio_ludoteca_hora):
+    cursor = connection.cursor()
+    insert_query = """
+    INSERT INTO juegos_mesa (titulo, fabricante, stock, precio_venta, precio_ludoteca_hora)
+    VALUES (%s, %s, %s, %s, %s);
+    """
+    cursor.execute(
+        insert_query,
+        (titulo, fabricante, stock, precio_venta, precio_ludoteca_hora),
+    )
+    connection.commit()
+    print(f"Juego de mesa '{titulo}' insertado exitosamente.")
+    cursor.close()
 
-    def get_juego_mesa(connection, titulo):
-        cursor = connection.cursor()
-        select_query = """
-        SELECT id, titulo, fabricante, stock, precio, precio_ludoteca_hora, created_at
-        FROM juegos_mesa
-        WHERE titulo = %s;
-        """
-        cursor.execute(select_query, (titulo,))
-        juego = cursor.fetchone()
-        cursor.close()
-        return juego
+def get_juego_mesa(connection, titulo):
+    cursor = connection.cursor()
+    select_query = """
+    SELECT id, titulo, fabricante, stock, precio_venta, precio_ludoteca_hora, created_at
+    FROM juegos_mesa
+    WHERE titulo = %s;
+    """
+    cursor.execute(select_query, (titulo,))
+    juego = cursor.fetchone()
+    cursor.close()
+    return juego
 
-    def insertar_venta(connection, cliente_id, juego_id, cantidad, precio_total):
-        cursor = connection.cursor()
-        insert_query = """
-        INSERT INTO ventas (cliente_id, juego_id, cantidad, precio_total)
-        VALUES (%s, %s, %s, %s);
-        """
-        cursor.execute(insert_query, (cliente_id, juego_id, cantidad, precio_total))
-        connection.commit()
-        print(f"Venta registrada exitosamente para el cliente ID '{cliente_id}'.")
-        cursor.close()
+def insertar_venta(connection, cliente_id, juego_id, cantidad, precio_total):
+    cursor = connection.cursor()
+    insert_query = """
+    INSERT INTO ventas (cliente_id, juego_id, cantidad, precio_total)
+    VALUES (%s, %s, %s, %s);
+    """
+    cursor.execute(insert_query, (cliente_id, juego_id, cantidad, precio_total))
+    connection.commit()
+    print(f"Venta registrada exitosamente para el cliente ID '{cliente_id}'.")
+    cursor.close()
 
-    def get_ventas(connection):
-        cursor = connection.cursor()
-        select_query = """
-        SELECT id, cliente_id, juego_id, cantidad, precio_total, fecha_venta
-        FROM ventas;
-        """
-        cursor.execute(select_query)
-        ventas = cursor.fetchall()
-        cursor.close()
-        return ventas
+def get_ventas(connection):
+    cursor = connection.cursor()
+    select_query = """
+    SELECT id, cliente_id, juego_id, cantidad, precio_total, fecha_venta
+    FROM ventas;
+    """
+    cursor.execute(select_query)
+    ventas = cursor.fetchall()
+    cursor.close()
+    return ventas
 
-    def insertar_ludoteca(
-        connection, juego_id, vendedor_id, hora_fin, duracion_horas, precio_total
-    ):
-        cursor = connection.cursor()
-        insert_query = """
-        INSERT INTO ludoteca_sesiones (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total)
-        VALUES (%s, %s, %s, %s, %s);
-        """
-        cursor.execute(
-            insert_query,
-            (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total),
-        )
-        connection.commit()
-        print(
-            f"Sesión de ludoteca registrada exitosamente para el juego ID '{juego_id}'."
-        )
-        cursor.close()
+def insertar_ludoteca(
+    connection, juego_id, vendedor_id, hora_fin, duracion_horas, precio_total
+):
+    cursor = connection.cursor()
+    insert_query = """
+    INSERT INTO ludoteca_sesiones (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total)
+    VALUES (%s, %s, %s, %s, %s);
+    """
+    cursor.execute(
+        insert_query,
+        (juego_id, vendedor_id, hora_fin, duracion_horas, precio_total),
+    )
+    connection.commit()
+    print(
+        f"Sesión de ludoteca registrada exitosamente para el juego ID '{juego_id}'."
+    )
+    cursor.close()
 
-    def get_ludoteca(connection):
-        cursor = connection.cursor()
-        select_query = """
-        SELECT id, juego_id, vendedor_id, hora_inicio, hora_fin, duracion_horas, precio_total
-        FROM ludoteca_sesiones;
-        """
-        cursor.execute(select_query)
-        sesiones = cursor.fetchall()
-        cursor.close()
-        return sesiones
+def get_ludoteca(connection):
+    cursor = connection.cursor()
+    select_query = """
+    SELECT id, juego_id, vendedor_id, hora_inicio, hora_fin, duracion_horas, precio_total
+    FROM ludoteca_sesiones;
+    """
+    cursor.execute(select_query)
+    sesiones = cursor.fetchall()
+    cursor.close()
+    return sesiones
 
-    def insertar_sesion_ludoteca(connection, sesion_id, usuario_id):
-        cursor = connection.cursor()
-        insert_query = """
-        INSERT INTO ludoteca_participantes (sesion_id, usuario_id)
-        VALUES (%s, %s);
-        """
-        cursor.execute(insert_query, (sesion_id, usuario_id))
-        connection.commit()
-        print(f"Participante ID '{usuario_id}' agregado a la sesión ID '{sesion_id}'.")
-        cursor.close()
+def insertar_sesion_ludoteca(connection, sesion_id, usuario_id):
+    cursor = connection.cursor()
+    insert_query = """
+    INSERT INTO ludoteca_participantes (sesion_id, usuario_id)
+    VALUES (%s, %s);
+    """
+    cursor.execute(insert_query, (sesion_id, usuario_id))
+    connection.commit()
+    print(f"Participante ID '{usuario_id}' agregado a la sesión ID '{sesion_id}'.")
+    cursor.close()
 
-    def get_participantes_sesion(connection, sesion_id):
-        cursor = connection.cursor()
-        select_query = """
-        SELECT id, sesion_id, usuario_id
-        FROM ludoteca_participantes
-        WHERE sesion_id = %s;
-        """
-        cursor.execute(select_query, (sesion_id,))
-        participantes = cursor.fetchall()
-        cursor.close()
-        return participantes
+def get_participantes_sesion(connection, sesion_id):
+    cursor = connection.cursor()
+    select_query = """
+    SELECT id, sesion_id, usuario_id
+    FROM ludoteca_participantes
+    WHERE sesion_id = %s;
+    """
+    cursor.execute(select_query, (sesion_id,))
+    participantes = cursor.fetchall()
+    cursor.close()
+    return participantes
 
 
 def main():
