@@ -161,7 +161,7 @@ def insertar_ludoteca(
     )
     connection.commit()
     print(
-        f"Sesión de ludoteca registrada exitosamente para el juego ID '{juego_id}'."
+        f"Sesion de ludoteca registrada exitosamente para el juego ID '{juego_id}'."
     )
     cursor.close()
 
@@ -184,7 +184,7 @@ def insertar_sesion_ludoteca(connection, sesion_id, usuario_id):
     """
     cursor.execute(insert_query, (sesion_id, usuario_id))
     connection.commit()
-    print(f"Participante ID '{usuario_id}' agregado a la sesión ID '{sesion_id}'.")
+    print(f"Participante ID '{usuario_id}' agregado a la sesion ID '{sesion_id}'.")
     cursor.close()
 
 def get_participantes_sesion(connection, sesion_id):

@@ -2,7 +2,7 @@ from db_connection import get_conn
 
 class LudotecaParticipante:
     """
-    Representa un registro de que un Usuario participó en una Sesión de Ludoteca.
+    Representa un registro de que un Usuario participo en una Sesion de Ludoteca.
     """
 
     def __init__(self, id_, sesion_id, usuario_id):
@@ -11,14 +11,14 @@ class LudotecaParticipante:
         self.usuario_id = usuario_id
 
     def descripcion(self):
-        """Método para obtener una representación legible del registro."""
-        return f"Participante ID {self.usuario_id} registrado en Sesión ID {self.sesion_id}"
+        """Método para obtener una representacion legible del registro."""
+        return f"Participante ID {self.usuario_id} registrado en Sesion ID {self.sesion_id}"
 
    
     @classmethod
     def registrar_participante(cls, sesion_id, usuario_id):
         """
-        Crea un nuevo registro de participación.
+        Crea un nuevo registro de participacion.
         """
         conn = get_conn()
         try:
@@ -34,7 +34,7 @@ class LudotecaParticipante:
             return cls(participante_id, sesion_id, usuario_id)
         except Exception as e:
             conn.rollback()
-            raise Exception(f"Error al registrar participante en sesión: {e}")
+            raise Exception(f"Error al registrar participante en sesion: {e}")
         finally:
             cur.close()
             conn.close()
@@ -42,7 +42,7 @@ class LudotecaParticipante:
     @classmethod
     def listar_por_sesion(cls, sesion_id):
         """
-        Muestra la lista de IDs de usuarios que participaron en una sesión.
+        Muestra la lista de IDs de usuarios que participaron en una sesion.
         """
         conn = get_conn()
         try:

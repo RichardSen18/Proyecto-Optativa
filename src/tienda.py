@@ -6,7 +6,7 @@ from ludoteca_participante import LudotecaParticipante
 
 class Tienda:
     """
-    Clase controladora central que gestiona la lógica de negocio de la tienda:
+    Clase controladora central que gestiona la logica de negocio de la tienda:
     Catálogo, Venta de Productos y Servicio de Ludoteca.
     """
 
@@ -18,7 +18,7 @@ class Tienda:
         return JuegoMesa.crear(titulo, fabricante, stock, precio_venta, precio_ludoteca_hora)
 
     def buscar_juego(self, titulo):
-        """Busca un juego por título."""
+        """Busca un juego por titulo."""
         return JuegoMesa.buscar_por_titulo(titulo)
 
     def listar_catalogo(self):
@@ -43,7 +43,7 @@ class Tienda:
         return Venta.crear(cliente_id, juego.id, cantidad)
     
     def listar_ventas_cliente(self, cliente_id):
-        """Lista las ventas realizadas por un cliente específico."""
+        """Lista las ventas realizadas por un cliente especifico."""
         return Venta.listar_por_cliente(cliente_id)
     
     def iniciar_sesion_juego(self, titulo_juego, vendedor_id):
@@ -72,7 +72,7 @@ class Tienda:
         """
         sesion = LudotecaSesion.buscar_por_id(sesion_id)
         if sesion is None:
-            raise Exception("Sesión de juego no encontrada.")
+            raise Exception("Sesion de juego no encontrada.")
             
         return sesion.finalizar_sesion()
 

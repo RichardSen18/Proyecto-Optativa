@@ -5,8 +5,8 @@ from juego_mesa import JuegoMesa
 
 class LudotecaSesion:
     """
-    Gestiona el encabezado de una sesión de juego en la ludoteca.
-    Su lógica principal es calcular el costo al finalizar.
+    Gestiona el encabezado de una sesion de juego en la ludoteca.
+    Su logica principal es calcular el costo al finalizar.
     """
 
     def __init__(
@@ -32,7 +32,7 @@ class LudotecaSesion:
         Metodo para obtener una representacion legible del objeto.
         """
         estado = "Activa" if not self.hora_fin else "Finalizada"
-        return f"Sesión ID {self.id} | Juego ID {self.juego_id} | Inicio: {self.hora_inicio} | Estado: {estado}"
+        return f"Sesion ID {self.id} | Juego ID {self.juego_id} | Inicio: {self.hora_inicio} | Estado: {estado}"
 
     @classmethod
     def iniciar_sesion(cls, juego_id, vendedor_id):
@@ -59,7 +59,7 @@ class LudotecaSesion:
             return cls(sesion_id, juego_id, vendedor_id, hora_inicio, None, None, None)
         except Exception as e:
             conn.rollback()
-            raise Exception(f"Error al iniciar la sesión de ludoteca: {e}")
+            raise Exception(f"Error al iniciar la sesion de ludoteca: {e}")
         finally:
             cur.close()
             conn.close()
@@ -67,7 +67,7 @@ class LudotecaSesion:
     @classmethod
     def buscar_por_id(cls, sesion_id):
         """
-        Busca una sesión por su ID.
+        Busca una sesion por su ID.
         """
         conn = get_conn()
         try:
@@ -88,14 +88,14 @@ class LudotecaSesion:
         Registra la hora de fin calcula el costo total y actualiza la BD.
         """
         if self.hora_fin:
-            raise Exception("La sesión ya ha sido finalizada.")
+            raise Exception("La sesion ya ha sido finalizada.")
 
         conn = get_conn()
 
         # Obtengo el precio por hora del juego
         juego = JuegoMesa.buscar_por_id(self.juego_id)
         if juego is None:
-            raise Exception("Juego de la sesión no encontrado en el catálogo.")
+            raise Exception("Juego de la sesion no encontrado en el catálogo.")
 
         precio_por_hora = juego.precio_ludoteca_hora
 
@@ -124,7 +124,7 @@ class LudotecaSesion:
 
         except Exception as e:
             conn.rollback()
-            raise Exception(f"Error al finalizar la sesión: {e}")
+            raise Exception(f"Error al finalizar la sesion: {e}")
         finally:
             cur.close()
             conn.close()
@@ -133,7 +133,7 @@ class LudotecaSesion:
     def eliminar(cls, sesion_id):
         """
         Elimina un registro de sesion.
-        Nota: La BD debe manejar la eliminación de participantes relacionados (CASCADE).
+        Nota: La BD debe manejar la eliminacion de participantes relacionados (CASCADE).
         """
         conn = get_conn()
         try:
@@ -144,7 +144,7 @@ class LudotecaSesion:
             return True
         except Exception as e:
             conn.rollback()
-            raise Exception(f"Error al eliminar la sesión: {e}")
+            raise Exception(f"Error al eliminar la sesion: {e}")
         finally:
             cur.close()
             conn.close()

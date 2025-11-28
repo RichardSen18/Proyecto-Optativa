@@ -38,7 +38,7 @@ class JuegoMesa:
             return True
         except Exception as e:
             conn.rollback()
-            raise Exception(f"Error en la transacción de stock: {e}")
+            raise Exception(f"Error en la transaccion de stock: {e}")
         finally:
             cur.close()
             conn.close()
@@ -155,7 +155,7 @@ class JuegoMesa:
     @classmethod
     def buscar_por_titulo(cls, titulo):
         """
-        Busca un juego por título .
+        Busca un juego por titulo .
         """
         conn = get_conn()
         try:

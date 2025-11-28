@@ -36,7 +36,7 @@ def centrar_ventana(ventana, ancho=400, alto=300):
 
 
 # --------------------------
-# Funciones de Sesión y Registro
+# Funciones de Sesion y Registro
 # --------------------------
 
 
@@ -64,7 +64,7 @@ def login_inicial():
             return
         else:
             messagebox.showinfo(
-                "Info", "Registro cancelado. Se solicitará inicio de sesión."
+                "Info", "Registro cancelado. Se solicitará inicio de sesion."
             )
 
     for _ in range(3):
@@ -80,7 +80,7 @@ def login_inicial():
             return
         else:
             retry = messagebox.askretrycancel(
-                "Error", "Credenciales incorrectas. ¿Deseas intentar de nuevo?"
+                "Error", "Credenciales incorrectas.  ¿intentar de nuevo?"
             )
             if not retry:
                 want_reg = messagebox.askyesno("Registro", "¿Deseas registrarte ahora?")
@@ -96,14 +96,14 @@ def login_inicial():
 
 
 def popup_login():
-    """Muestra un pequeño formulario para login (Usuario y Contraseña juntos)."""
+    """Muestra un pequeño formulario para login."""
     login_data = {}
 
     top = tk.Toplevel(root)
-    top.title("Iniciar Sesión")
+    top.title("Iniciar Sesion")
     centrar_ventana(top, 300, 150)
     top.transient(root)
-    top.grab_set()  
+    top.grab_set()
 
     tk.Label(top, text="Usuario:").grid(row=0, column=0, padx=10, pady=10)
     e_user = tk.Entry(top)
@@ -129,7 +129,7 @@ def popup_login():
     )
     top.bind("<Return>", lambda event: confirmar())
 
-    root.wait_window(top)  
+    root.wait_window(top)
     return login_data if login_data else None
 
 
@@ -172,7 +172,7 @@ def registrar_usuario_publico():
     combo_rol.current(0)  # Default cliente
     combo_rol.grid(row=2, column=1, padx=10, pady=5)
 
-    tk.Label(top, text="Cód. Admin (si aplica):").grid(
+    tk.Label(top, text="Cod. Admin (si aplica):").grid(
         row=3, column=0, padx=10, pady=5, sticky="e"
     )
     e_code = tk.Entry(top, show="*")  # Opcional
@@ -190,10 +190,10 @@ def registrar_usuario_publico():
             )
             return
 
-        # Validación Admin
+        # Validacion Admin
         if rol == "administrador" and code != ADMIN_CODE:
             messagebox.showerror(
-                "Error", "Código de administrador incorrecto.", parent=top
+                "Error", "Codigo de administrador incorrecto.", parent=top
             )
             return
 
@@ -210,7 +210,7 @@ def registrar_usuario_publico():
     btn = tk.Button(top, text="Registrar", command=guardar, bg="#dddddd")
     btn.grid(row=4, column=0, columnspan=2, pady=15)
 
-    root.wait_window(top) 
+    root.wait_window(top)
     return resultado.get("user")
 
 
@@ -225,7 +225,7 @@ def requiere_rol(roles_permitidos):
         def wrapper(*args, **kwargs):
             if current_user is None or current_user.role not in roles_permitidos:
                 messagebox.showerror(
-                    "Permisos", "No tienes permiso para realizar esta acción."
+                    "Permisos", "No tienes permiso para realizar esta accion."
                 )
                 return
             return func(*args, **kwargs)
@@ -236,7 +236,7 @@ def requiere_rol(roles_permitidos):
 
 
 # --------------------------
-# Funciones de Gestión: USUARIOS (Admin)
+# Funciones de Gestion: USUARIOS (Admin)
 # --------------------------
 
 
@@ -281,7 +281,7 @@ def modificar_usuario():
     tk.Label(top, text="Nueva Contraseña:").grid(
         row=2, column=0, padx=10, pady=5, sticky="e"
     )
-    tk.Label(top, text="(Dejar vacío para mantener)").grid(
+    tk.Label(top, text="(Dejar vacio para mantener)").grid(
         row=3, column=0, columnspan=2, text_color="gray", font=("Arial", 8)
     )
     e_pass = tk.Entry(top, show="*")
@@ -294,13 +294,13 @@ def modificar_usuario():
 
         if not nn:
             messagebox.showwarning(
-                "Error", "El nombre no puede estar vacío", parent=top
+                "Error", "El nombre no puede estar vacio", parent=top
             )
             return
 
         try:
             Usuario.actualizar(usr.id, nn, nr, np if np else None)
-            messagebox.showinfo("Éxito", "Usuario actualizado.", parent=top)
+            messagebox.showinfo("Exito", "Usuario actualizado.", parent=top)
             top.destroy()
             listar_usuarios()
         except Exception as e:
@@ -337,14 +337,14 @@ def eliminar_usuario():
                 messagebox.showerror(
                     "No se puede eliminar",
                     f"El usuario '{usr.nombre}' tiene historial de ventas o sesiones.\n\n"
-                    "No se puede eliminar porque perderías el registro financiero.",
+                    "No se puede eliminar porque perderias el registro financiero.",
                 )
             else:
                 messagebox.showerror("Error", f"Error al eliminar: {e}")
 
 
 # --------------------------
-# Funciones de Gestión: CATÁLOGO (Admin)
+# Funciones de Gestion: CATÁLOGO (Admin)
 # --------------------------
 
 
@@ -356,10 +356,10 @@ def registrar_juego():
     top = tk.Toplevel(root)
     top.title("Registrar Nuevo Juego")
     centrar_ventana(top, 400, 300)
-    top.transient(root)  
+    top.transient(root)
 
     labels = [
-        "Título:",
+        "Titulo:",
         "Fabricante:",
         "Stock Inicial:",
         "Precio Venta ($):",
@@ -375,19 +375,16 @@ def registrar_juego():
         entry.grid(row=i, column=1, padx=15, pady=8)
         entries[label_text] = entry
 
-
     def guardar_juego():
-
-        t = entries["Título:"].get().strip()
+        t = entries["Titulo:"].get().strip()
         f = entries["Fabricante:"].get().strip()
         s_str = entries["Stock Inicial:"].get()
         pv_str = entries["Precio Venta ($):"].get()
         pl_str = entries["Precio Ludoteca ($/h):"].get()
 
-
         if not t or not f:
             messagebox.showwarning(
-                "Faltan datos", "Título y Fabricante son obligatorios.", parent=top
+                "Faltan datos", "Titulo y Fabricante son obligatorios.", parent=top
             )
             return
 
@@ -398,25 +395,24 @@ def registrar_juego():
         except ValueError:
             messagebox.showerror(
                 "Error de formato",
-                "Stock debe ser entero.\nPrecios deben ser números.",
+                "Stock debe ser entero.\nPrecios deben ser numeros.",
                 parent=top,
             )
             return
 
-  
         try:
             j = tienda.registrar_juego(t, f, s, pv, pl)
             messagebox.showinfo(
                 "Éxito", f"Juego '{j.titulo}' registrado correctamente.", parent=top
             )
-            top.destroy()  
-            listar_catalogo()  
+            top.destroy()
+            listar_catalogo()
         except Exception as e:
             messagebox.showerror(
                 "Error BD", f"No se pudo registrar el juego:\n{e}", parent=top
             )
 
-    # Botón Guardar
+    # Boton Guardar
     btn_save = tk.Button(
         top, text="Guardar Juego", command=guardar_juego, bg="#e1e1e1", width=20
     )
@@ -425,7 +421,7 @@ def registrar_juego():
 
 @requiere_rol(["administrador"])
 def eliminar_juego():
-    titulo = simpledialog.askstring("Eliminar Juego", "Título del juego a eliminar:")
+    titulo = simpledialog.askstring("Eliminar Juego", "Titulo del juego a eliminar:")
     if not titulo:
         return
 
@@ -446,7 +442,7 @@ def eliminar_juego():
 
 
 # --------------------------
-# Funciones de Gestión: Vendedor/Admin/Cliente
+# Funciones de Gestion: Vendedor/Admin/Cliente
 # --------------------------
 
 
@@ -458,7 +454,7 @@ def realizar_venta():
     centrar_ventana(top, 350, 200)
 
     # Campos
-    tk.Label(top, text="Título del Juego:").grid(
+    tk.Label(top, text="Titulo del Juego:").grid(
         row=0, column=0, padx=10, pady=10, sticky="e"
     )
     e_titulo = tk.Entry(top)
@@ -517,7 +513,6 @@ def realizar_venta():
 
 @requiere_rol(["administrador", "vendedor"])
 def iniciar_ludoteca():
-
     top = tk.Toplevel(root)
     top.title("Ludoteca: Iniciar")
     centrar_ventana(top, 350, 180)
@@ -538,7 +533,7 @@ def iniciar_ludoteca():
 
         try:
             sesion = tienda.iniciar_sesion_juego(tit, current_user.id)
-            msg = f"Sesión iniciada ID: {sesion.id}"
+            msg = f"Sesion iniciada ID: {sesion.id}"
 
             if par:
                 tienda.registrar_participante(sesion.id, par)
@@ -549,14 +544,14 @@ def iniciar_ludoteca():
         except Exception as e:
             messagebox.showerror("Error", f"{e}", parent=top)
 
-    tk.Button(top, text="Iniciar Sesión", command=iniciar).grid(
+    tk.Button(top, text="Iniciar Sesion", command=iniciar).grid(
         row=2, column=0, columnspan=2, pady=10
     )
 
 
 @requiere_rol(["administrador", "vendedor"])
 def finalizar_ludoteca():
-    sid = simpledialog.askstring("Ludoteca", "ID de sesión a finalizar:")
+    sid = simpledialog.askstring("Ludoteca", "ID de sesion a finalizar:")
     if not sid:
         return
     try:
@@ -566,7 +561,7 @@ def finalizar_ludoteca():
         s = LudotecaSesion.buscar_por_id(int(sid))
         messagebox.showinfo(
             "Finalizada",
-            f"Sesión {s.id} terminada.\nDuración: {s.duracion_horas}h\nTotal a pagar: ${s.precio_total}",
+            f"Sesion {s.id} terminada.\nDuracion: {s.duracion_horas}h\nTotal a pagar: ${s.precio_total}",
         )
     except Exception as e:
         messagebox.showerror("Error", f"Error finalizar: {e}")
@@ -637,9 +632,9 @@ def listar_sesiones_ludoteca():
 
 @requiere_rol(["administrador"])
 def modificar_juego():
-    """Busca un juego por título y abre formulario para editarlo."""
+    """Busca un juego por titulo y abre formulario para editarlo."""
     titulo_busc = simpledialog.askstring(
-        "Modificar Juego", "Título del juego a editar:"
+        "Modificar Juego", "Titulo del juego a editar:"
     )
     if not titulo_busc:
         return
@@ -655,7 +650,7 @@ def modificar_juego():
     top.transient(root)
 
     labels = [
-        "Nuevo Título:",
+        "Nuevo Titulo:",
         "Nuevo Fabricante:",
         "Nuevo Precio Venta:",
         "Nuevo Precio Ludo/h:",
@@ -726,7 +721,7 @@ def listar_mis_compras():
 
 
 # --------------------------
-# Configuración GUI
+# Configuracion GUI
 # --------------------------
 
 
@@ -751,15 +746,15 @@ def ajustar_menu_por_rol():
         menu_catalogo.entryconfig("Eliminar juego", state=state_admin)
 
     if menu_acciones:
-        menu_acciones.entryconfig("Iniciar Sesión Ludoteca", state=state_vend)
-        menu_acciones.entryconfig("Finalizar Sesión Ludoteca", state=state_vend)
+        menu_acciones.entryconfig("Iniciar Sesion Ludoteca", state=state_vend)
+        menu_acciones.entryconfig("Finalizar Sesion Ludoteca", state=state_vend)
         # state_vend si prefieres  = restringe
         # state "normal" para todos
         menu_acciones.entryconfig("Ver Historial Ludoteca", state="normal")
 
 
 root = tk.Tk()
-root.title("Gestión Tienda y Ludoteca")
+root.title("Gestion Tienda y Ludoteca")
 root.geometry("800x500")
 
 menubar = tk.Menu(root)
@@ -767,7 +762,7 @@ menubar = tk.Menu(root)
 # 1. Menú Usuarios
 menu_usuarios = tk.Menu(menubar, tearoff=0)
 menu_usuarios.add_command(label="Registrar usuario", command=registrar_usuario_admin)
-menu_usuarios.add_command(label="Modificar usuario", command=modificar_usuario)
+# menu_usuarios.add_command(label="Modificar usuario", command=modificar_usuario)
 menu_usuarios.add_command(label="Eliminar usuario", command=eliminar_usuario)
 menu_usuarios.add_separator()
 menu_usuarios.add_command(label="Listar usuarios", command=listar_usuarios)
@@ -783,16 +778,20 @@ menu_catalogo.add_separator()
 menu_catalogo.add_command(label="Ver Catálogo", command=listar_catalogo)
 menubar.add_cascade(label="Catálogo", menu=menu_catalogo)
 
-# 3. Menú Acciones (Aquí van las compras y ludoteca)
+# 3. Menú Acciones (Aqui van las compras y ludoteca)
 menu_acciones = tk.Menu(menubar, tearoff=0)
 menu_acciones.add_command(label="Comprar Juego", command=realizar_venta)
 menu_acciones.add_separator()
-menu_acciones.add_command(label="Ver Mis Compras", command=listar_mis_compras) # <--- Aquí va lo de compras
+menu_acciones.add_command(
+    label="Ver Mis Compras", command=listar_mis_compras
+)  # <--- Aqui va lo de compras
 menu_acciones.add_separator()
-menu_acciones.add_command(label="Iniciar Sesión Ludoteca", command=iniciar_ludoteca)
-menu_acciones.add_command(label="Finalizar Sesión Ludoteca", command=finalizar_ludoteca)
+menu_acciones.add_command(label="Iniciar Sesion Ludoteca", command=iniciar_ludoteca)
+menu_acciones.add_command(label="Finalizar Sesion Ludoteca", command=finalizar_ludoteca)
 menu_acciones.add_separator()
-menu_acciones.add_command(label="Ver Historial Ludoteca", command=listar_sesiones_ludoteca)
+menu_acciones.add_command(
+    label="Ver Historial Ludoteca", command=listar_sesiones_ludoteca
+)
 menubar.add_cascade(label="Acciones", menu=menu_acciones)
 
 # 4. Menú Sistema

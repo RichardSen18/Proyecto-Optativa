@@ -4,7 +4,7 @@ from juego_mesa import JuegoMesa
 
 class Venta:
     """
-    Representa una transacción de compra de un juego de mesa.
+    Representa una transaccion de compra de un juego de mesa.
     """
 
     def __init__(self, id_, cliente_id, juego_id, cantidad, precio_total, fecha_venta):
@@ -16,8 +16,8 @@ class Venta:
         self.fecha_venta = fecha_venta
 
     def descripcion(self):
-        """Método para obtener una representación legible del objeto Venta."""
-        return f"Venta ID {self.id} | Cliente {self.cliente_id} compró {self.cantidad} del Juego {self.juego_id} por ${self.precio_total:.2f}"
+        """Método para obtener una representacion legible del objeto Venta."""
+        return f"Venta ID {self.id} | Cliente {self.cliente_id} compro {self.cantidad} del Juego {self.juego_id} por ${self.precio_total:.2f}"
 
     @classmethod
     def crear(cls, cliente_id, juego_id, cantidad):
